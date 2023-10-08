@@ -1,0 +1,12 @@
+from django.utils.translation import gettext_lazy as _
+
+
+STATE_USE_TYPE = 'En uso'
+STATE_USE_TYPE_DELIVERED = 'Entregado'
+STATE_USE_TYPE_WITHOUT_USE = 'Sin uso'
+
+STATE_USE_TYPES = (
+    (STATE_USE_TYPE, _(STATE_USE_TYPE)),
+    (STATE_USE_TYPE_DELIVERED, _(STATE_USE_TYPE_DELIVERED)),
+    (STATE_USE_TYPE_WITHOUT_USE, _(STATE_USE_TYPE_WITHOUT_USE)),
+)
