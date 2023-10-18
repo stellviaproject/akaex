@@ -27,11 +27,13 @@ class Importer(APIView):
     def post(self, request):
         json_str = unzip_json(request.body)
         merged_json = json.loads(json_str)
-        for _, serialized_data in merged_json.items():
+        for model_name, serialized_data in merged_json.items():
             # Deserializa los datos
             objs_with_deferred_fields = []
             deserialized_data = deserialize('json', serialized_data)
+            print(deserialized_data)
             for obj in deserialized_data:
+                obj.pk = ""
                 obj.save()
                 if obj.deferred_fields is not None:
                     objs_with_deferred_fields.append(obj)
@@ -49,10 +51,6 @@ class Lister(APIView):
 class Exporter(APIView):
     def get(self, request, *args, **kwargs):
         id_param = request.query_params.get('id')
-    
-        #################################################################
-        ## NOTA: TODA VARIABLE CON PREFIJO  SE SERIALIZARA A JSON ##
-        #################################################################
     
         ## Extract all info from structure##
         #obtener la estructura con el id o nombre
@@ -307,7 +305,7 @@ class Exporter(APIView):
             name_of_set(worker_unsubscribement_procedures): serialize('json', worker_unsubscribement_procedures),
             name_of_set(specialities): serialize('json', specialities),
             name_of_set(speciality_modalities): serialize('json', speciality_modalities),
-            name_of_set(spacility_modality_activity_educations): serialize('json', spacility_modality_activity_educations),
+            name_of_set(spacility_modality_activity_educations): serialize('json', spacility_modality_activity_educations | speciality_configuations),
             name_of_set(study_plans): serialize('json', study_plans),
             name_of_set(study_plan_versions): serialize('json', study_plan_versions),
             name_of_set(subjects): serialize('json', subjects),
@@ -316,7 +314,7 @@ class Exporter(APIView):
             name_of_set(discipline_evaluations): serialize('json', discipline_evaluations),
             name_of_set(qualification_ranges): serialize('json', qualification_ranges),
             name_of_set(evaluation_categories): serialize('json', evaluation_categories),
-            name_of_set(evaluation_types): serialize('json', evaluation_types),
+            name_of_set(evaluation_types): serialize('json', evaluation_types | evaluation_form),
             name_of_set(evaluation_culmination_studies): serialize('json', evaluation_culmination_studies),
             name_of_set(not_lective_subjects): serialize('json', not_lective_subjects),
             name_of_set(subject_types): serialize('json', subject_types),
@@ -329,7 +327,6 @@ class Exporter(APIView):
             name_of_set(subject_version_plans): serialize('json', subject_version_plans),
             name_of_set(subject_versions): serialize('json', subject_versions),
             name_of_set(organization_form): serialize('json', organization_form),
-            name_of_set(evaluation_form): serialize('json', evaluation_form),
             name_of_set(subject_organizations): serialize('json', subject_organizations),
             name_of_set(school_periods): serialize('json', school_periods),
             name_of_set(evaluation_form_registries): serialize('json', evaluation_form_registries),
@@ -341,14 +338,11 @@ class Exporter(APIView):
             name_of_set(school_frame_registries): serialize('json', school_frame_registries),
             name_of_set(cycles): serialize('json', cycles),
             name_of_set(speciality_study_plan_configurations): serialize('json', speciality_study_plan_configurations),
-            name_of_set(speciality_configuations): serialize('json', speciality_configuations),
             name_of_set(values): serialize('json', values),
             name_of_set(range): serialize('json', range),
         }
         #unir todos los archivos json
         merged_json_str = json.dumps(merged_json)
-        
-        #TODO: Retornar un comprimido encriptado.
         
         zipped = zip_json(merged_json_str)
         response = HttpResponse(zipped, content_type='application/zip')
