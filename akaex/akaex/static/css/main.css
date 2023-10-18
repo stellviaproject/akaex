@@ -1,0 +1,36 @@
+
+
+body {
+    background-image: url("background-image.jpg");
+}
+
+.main-title {
+    font-weight: bold;
+}
+
+#school-container li {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    height: 4vh;
+}
+
+.extend-width {
+    width: 100%;
+}
+
+.workarea {
+    background-color: white;
+}
+
+.nav-app {
+    margin-top: 1em;
+}
+
+.btn-app {
+    font-weight: bold;
+}
+
+.w-item {
+    margin-left: 1em;
+    margin-right: 1em;
+}

@@ -8,7 +8,7 @@
             "name": "Python: Django",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}\\akex\\manage.py",
+            "program": "${workspaceFolder}\\akaex\\manage.py",
             "args": [
                 "runserver"
             ],

@@ -10,6 +10,14 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+from datetime import timedelta
+from django.utils.translation import ugettext_lazy as _
+
+import http.client
+
+#DAHPNE FIX HEADER MAX LENGHT AND REQUEST MAX LINE LENGHT
+from twisted.web.http import HTTPChannel
+from twisted.protocols.basic import LineReceiver
 from pathlib import Path
 import os
 
@@ -49,6 +57,7 @@ INSTALLED_APPS = [
     "person",
     "procedure",
     "titulation",
+    "django_celery_beat"
 ]
 
 MIDDLEWARE = [
@@ -140,3 +149,133 @@ STATICFILES_DIRS = [
        os.path.join(BASE_DIR, 'akaex/static'),
        # ... otras rutas estáticas de las aplicaciones van aquí ...
    ]
+
+#######################################################
+################## AKADEMOS SETTINGS ##################
+#######################################################
+
+# ALLOWED_HOSTS = ['127.0.0.1' , 'localhost', 'akademos.local.uci.cu', '10.36.32.248']
+# INTERNAL_IPS = ['127.0.0.1']
+
+# LOCATION_FIELD = {
+#     'map.provider': 'openstreetmap',
+#     'search.provider': 'nominatim',
+# }
+
+# CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ALLOW_METHODS = [
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+# ]
+
+# CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:4200"
+# ]
+
+# GUARDIAN_RAISE_403 = True
+# GUARDIAN_AUTO_PREFETCH = False
+# GUARDIAN_MONKEY_PATCH = False
+
+# LANGUAGES = (("en", _("English")), ("es", _("Spanish")))
+# LOCALE_PATHS = (
+#     os.path.join(BASE_DIR, 'locale'),
+# )
+
+# LANGUAGE_CODE = "es"
+# TIME_ZONE = 'America/Havana'
+# USE_I18N = True
+# USE_L10N = True
+# USE_TZ = True
+
+# Rest Framework
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': [
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ],
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.IsAuthenticated',
+#     ),
+#     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+#     'DEFAULT_PAGINATION_CLASS': 'core.pagination.AkLimitOffsetPagination',
+#     # 'DEFAULT_PAGINATION_CLASS': 'rest_framework_datatables.pagination.DatatablesLimitOffsetPagination',
+#     'PAGE_SIZE': 100,
+#     #'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.openapi.AutoSchema',
+#     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',
+#                                 'rest_framework_datatables.filters.DatatablesFilterBackend'),
+#     'DEFAULT_PARSER_CLASSES': (
+#         'rest_framework.parsers.JSONParser',
+#         'rest_framework.parsers.MultiPartParser',
+#     ),
+#     "TEST_REQUEST_DEFAULT_FORMAT": "json",
+# }
+# PAGE_SIZE_UNLIMIT=15000
+
+# SWAGGER_SETTINGS = {
+#     'SECURITY_DEFINITIONS': {
+#         'api_key': {
+#             'type': 'apiKey',
+#             'name': 'Autorization ',
+#             'in': 'header'
+#         }
+#     }
+# }
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Havana'
+
+# JASPER_URL = 'http://localhost:8484'  # url donde esté corriendo jasper server
+# JASPER_USER = 'jasperadmin'
+# JASPER_PASSWORD = 'jasperadmin'
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+#     'ROTATE_REFRESH_TOKENS': False,
+#     'BLACKLIST_AFTER_ROTATION': True,
+
+#     'ALGORITHM': 'HS256',
+#     'SIGNING_KEY': SECRET_KEY,
+#     'VERIFYING_KEY': None,
+#     'AUDIENCE': None,
+#     'ISSUER': None,
+
+#     'AUTH_HEADER_TYPES': ('Bearer',),
+#     'USER_ID_FIELD': 'id',
+#     'USER_ID_CLAIM': 'user_id',
+
+#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+#     'TOKEN_TYPE_CLAIM': 'token_type',
+
+#     'JTI_CLAIM': 'jti',
+
+#     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+#     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+#     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+# }
+
+# SENTRY_ENVIRONMENT = 'production'
+# EMAIL_FROM = 'fortes@uci.cu'
+# BASE_SITE_URL = 'http://server.akademos.mined.gob.cu'
+# CLIENT_SITE_URL_LOGIN = 'http://akademos.mined.gob.cu'
+
+# # Increase the the maximum number of parameters that may be received via GET or POST
+# DATA_UPLOAD_MAX_NUMBER_FIELDS = 20000
+# DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760
+
+# # Increase the limit of the header size
+# http.client._MAXLINE = 1024000000
+
+# HTTPChannel.totalHeadersSize = 1024000000
+# LineReceiver.MAX_LENGTH = 1024000000

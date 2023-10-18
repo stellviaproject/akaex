@@ -3,23 +3,91 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
-        <meta name="author" content="">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <meta name="theme-color" content="#2d2c2c">
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover">
-        <meta property="og:title" content="">
-        <meta content="" property="og:description">
-        <meta property="og:type" content="website">
-        <meta property="og:image" content="">
-        <title></title>
-        <link rel="manifest" href="static/manifest.webmanifest">
-        <link rel="stylesheet" type="text/css" href="static/css/app.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Ak-Ex</title>
+        <link rel="stylesheet" href="static/css/icon.css">
+        <link rel="stylesheet" href="static/css/materialize.css">
+        <link rel="stylesheet" href="static/css/materialize.min.css">
+        <link rel="stylesheet" href="static/css/main.css">
         <script src="static/js/jquery-3.7.1.min.js"></script>
-        <script src="static/js/jquery-3.7.1"></script>
-        <script defer="defer" src="static/js/wasm_exec.js"></script>
-        <script defer="defer" src="static/js/app.js"></script>
+        <script src="static/js/materialize.js"></script>
+        <script src="static/js/materialize.min.js"></script>
+        <script src="static/js/axios.min.js"></script>
+        <script src="static/js/main.js"></script>
     </head>
     <body>
+        <div class="container main">
+            <nav class="nav-extended nav-full-header nav-app">
+                <div class="nav-content orange lighten-5">
+                    <div class="row" style="height: 1em;"></div>
+                    <div class="row">
+                        <div class="nav-background valign-wrapper col m2">
+                            <img class="active hide-on-med-and-down" style="width: 10vw;" src="static/logo.png" alt="Imagen">
+                            <img class="active hide-on-large-only" style="width: 20vw;" src="static/logo.png" alt="Imagen">
+                        </div>
+                        <div class="nav-header valign-wrapper col m10 hide-on-med-and-down">
+                            <h1 class="indigo-text text-darken-4 main-title">Akademos Ex-Im</h1>
+                        </div>
+                        <div class="nav-header valign-wrapper col m10 hide-on-large-only">
+                            <div class="row">
+                                <h1 class="indigo-text text-darken-4 main-title">Akademos</h1>
+                                <h3 class="indigo-text text-darken-4 main-title">Ex-Im</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="tabs tabs-transparent orange">
+                        <li class="tab">
+                            <a href="#importer">
+                                Importar
+                            </a>
+                        </li>
+                        <li class="tab">
+                            <a href="#exporter">
+                                Exportar
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <div id="importer" class="workarea orange lighten-5">
+                <div class="row w-item" style="height: 30%;"></div>
+                <div class="row w-item">
+                    <form action="#" class="col s12 m12 l12">
+                        <div class="file-field input-field">
+                            <div id="import-button"
+                                class="btn btn-app waves-effect deep-orange
+                                lighten-1 waves-light black-text white-text
+                                extend-width" style="min-height: 10vh;">
+                                <div style="margin-top: 1.7vh;">
+                                    <span>Importar Datos</span>
+                                    <i class="material-icons right">file_upload</i>
+                                    <input id="import-input" type="file">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div id="exporter" class="workarea orange lighten-5">
+                <div class="row w-item">
+                    <div id="school-container" class="input-field col s12 m12 l12 extend-width"
+                    >
+                        <select id="school-select">
+                            <option value="" disabled selected>Escoge una escuela</option>
+                        </select>
+                        <label>Listado de escuelas</label>
+                    </div>
+                </div>
+                <div class="row w-item">
+                    <button  id="export-button"
+                    class="btn btn-app waves-effect waves-light deep-orange lighten-1 white-text col s12 m12 l12"
+                    style="min-height: 10vh;"
+                    >
+                        Exportar Datos<i class="material-icons right">file_download</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--JavaScript at end of body for optimized loading-->
     </body>
 </html>
