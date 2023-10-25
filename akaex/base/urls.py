@@ -18,18 +18,20 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
-from akaex.views import Exporter
-from akaex.views import Importer
-from akaex.views import Lister
-from akaex.views import index
+from akaex.views import ExporterView
+from akaex.views import ImporterView
+from akaex.views import ListerView
+from akaex.views import HomeView
 
+#define las url del servidor
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index'),
-    path('export/', Exporter.as_view(), name='exporter-view'),
-    path('import/', Importer.as_view(), name='importer-view'),
-    path('list/', Lister.as_view(), name="lister-view"),
+    path('', HomeView.as_view(), name='index'), #pagina principal
+    path('export/', ExporterView.as_view(), name='exporter-view'), #api para exportar
+    path('import/', ImporterView.as_view(), name='importer-view'), #api para importar
+    path('list/', ListerView.as_view(), name="lister-view"), #api para listar escuelas
 ]
 
+#servir los archivos estatico
 for static_dir in settings.STATICFILES_DIRS:
     urlpatterns += static(settings.STATIC_URL, document_root=static_dir)

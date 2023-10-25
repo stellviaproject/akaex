@@ -1,26 +1,27 @@
 import json
 from structure.models import Structure
 
-class School:
+#serializa un structure en un dict para luego a json
+class SchoolJSONSerializer:
     def __init__(self, struct:Structure) -> None:
-        self.id = str(struct.id)
+        #establecer atributos
+        self.id = str(struct.id) #id de structure
         self.name = struct.name
-        self.province = struct.province.short_name
-        self.municipality = struct.municipality.short_name
         self.address = struct.address
         self.code = struct.code
         self.email = struct.email
         pass
+    #retorna el dict
     def to_dict(self):
         return {
-            'id': self.id,
+            'id': self.id, #id de structure
             'name': self.name,
-            'province': self.province,
-            'municipality': self.municipality,
             'address': self.address,
             'code': self.code,
             'email': self.email,
         }
         
+#convierte structure a SchoolJSONSerializer
 def structure_to_school(structure):
-    return School(structure)
+    return SchoolJSONSerializer(structure)#llamada al constructor
+
